@@ -1,34 +1,55 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg)
 
-# What is Tiny Tapeout?
+# 8x8 Bit Pattern Player
 
-TinyTapeout is an educational project that aims to make it easier and cheaper than ever to get your digital designs manufactured on a real chip!
+## TinyTapeout 02
 
-Go to https://tinytapeout.com for instructions!
+This repository contains a mikrochip design done for TinyTapeout 02.
+Go to https://tinytapeout.com for more informations.
 
-## How to change the Wokwi project
+This is a re-submission from TinyTapeOut 01. So the code in this project is a clone from the TT01 project (same wokwi ID).
 
-Edit the [info.yaml](info.yaml) and change the wokwi_id to match your project.
+## Wokwi project
 
-## How to enable the GitHub actions to build the ASIC files
+https://wokwi.com/projects/341620484740219475
 
-Please see the instructions for:
+## Information about the design
 
-* [Enabling GitHub Actions](https://tinytapeout.com/faq/#when-i-commit-my-change-the-gds-action-isnt-running)
-* [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+author:       "Thorsten Knoll"
 
-## How does it work?
+title:        "8x8 Bit Pattern Player"
 
-When you edit the info.yaml to choose a different ID, the [GitHub Action](.github/workflows/gds.yaml) will fetch the digital netlist of your design from Wokwi.
+description:  "8x8 bit serial programmable, addressable and playable memory."
 
-After that, the action uses the open source ASIC tool called [OpenLane](https://www.zerotoasiccourse.com/terminology/openlane/) to build the files needed to fabricate an ASIC.
+how_it_works: "The 8x8 memory is a 64-bit shiftregister, consisting of 64 serial chained D-FlipFlops (data: IN0, clk_sr: IN1). 8 memoryslots of each 8 bit can be directly addressed via addresslines (3 bit: IN2, IN3, IN4) or from a clockdriven player (3 bit counter, clk_pl: IN7). A mode selector line (mode: IN5) sets the operation mode to addressing or to player. The 8 outputs are driven by the 8 bit of the addressed memoryslot."
 
-## Resources
+how_to_test:  "Programm the memory: Start by filling the 64 bit shiftregister via data and clk_sr, each rising edge on clk_sr shifts a new data bit into the register. Select mode: Set mode input for direct addressing or clockdriven player. Address mode: Address a memoryslot via the three addresslines and watch the memoryslot at the outputs. Player mode: Each rising edge at clk_pl enables the next memoryslot to the outputs."
 
-* [FAQ](https://tinytapeout.com/faq/)
-* [Digital design lessons](https://tinytapeout.com/digital_design/)
-* [Join the community](https://discord.gg/rPK2nSjxy8)
+external_hw:  "You could programm, address and play the 8x8 Bit Pattern Player with a breadboard, two clock buttons and some dipswitches on the input side. Add some LED to the output side. Just like the WOKWI simulation."
 
-## What next?
+language:     "wokwi"
 
-* Share your GDS on Twitter, tag it [#tinytapeout](https://twitter.com/hashtag/tinytapeout?src=hashtag_click) and [link me](https://twitter.com/matthewvenn)!
+wokwi_id:     341620484740219475
+
+pictures:
+<img src="pattern_player.png">
+<img src="pattern_player_gds_render.png">
+
+inputs:
+  * data
+  * clk_sr
+  * address_0
+  * address_1
+  * address_2
+  * mode
+  * none
+  * clk_pl
+
+outputs:
+  * bit 0
+  * bit 1
+  * bit 2
+  * bit 3
+  * bit 4
+  * bit 5
+  * bit 6
