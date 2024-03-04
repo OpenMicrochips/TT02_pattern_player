@@ -21,7 +21,9 @@ title:        "8x8 Bit Pattern Player"
 
 description:  "8x8 bit serial programmable, addressable and playable memory."
 
-how_it_works: "The 8x8 memory is a 64-bit shiftregister, consisting of 64 serial chained D-FlipFlops (data: IN0, clk_sr: IN1). 8 memoryslots of each 8 bit can be directly addressed via addresslines (3 bit: IN2, IN3, IN4) or from a clockdriven player (3 bit counter, clk_pl: IN7). A mode selector line (mode: IN5) sets the operation mode to addressing or to player. The 8 outputs are driven by the 8 bit of the addressed memoryslot."
+__Important notice:__ The initial documentation had an error with swapping IN0 and IN1. This error got fixed in this repository here (README and info.yaml). But the automated TT02 docs might still have the wrong version. Below is the correct order of IN0 (clk_sr) and IN1 (data). Please keep this in mind when driving the pins.
+
+how_it_works: "The 8x8 memory is a 64-bit shiftregister, consisting of 64 serial chained D-FlipFlops (clk_sr: IN0, data: IN1). 8 memoryslots of each 8 bit can be directly addressed via addresslines (3 bit: IN2, IN3, IN4) or from a clockdriven player (3 bit counter, clk_pl: IN7). A mode selector line (mode: IN5) sets the operation mode to addressing or to player. The 8 outputs are driven by the 8 bit of the addressed memoryslot."
 
 how_to_test:  "Programm the memory: Start by filling the 64 bit shiftregister via data and clk_sr, each rising edge on clk_sr shifts a new data bit into the register. Select mode: Set mode input for direct addressing or clockdriven player. Address mode: Address a memoryslot via the three addresslines and watch the memoryslot at the outputs. Player mode: Each rising edge at clk_pl enables the next memoryslot to the outputs."
 
@@ -36,8 +38,8 @@ pictures:
 <img src="pattern_player_gds_render.png">
 
 inputs:
-  * data
   * clk_sr
+  * data
   * address_0
   * address_1
   * address_2
